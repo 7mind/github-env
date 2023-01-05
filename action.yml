@@ -42,3 +42,5 @@ runs:
       run: |
           BRANCH_TAG="$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)"
           echo BRANCH_TAG=${BRANCH_TAG} >> ${GITHUB_ENV}
+          echo CI=true >> ${GITHUB_ENV}
+
