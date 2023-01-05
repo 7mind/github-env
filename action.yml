@@ -60,13 +60,13 @@ runs:
       shell: bash
       run: |
           {
-            echo "LC_ALL=\"C.UTF-8\""
-            echo "CI_BRANCH=\"${GITHUB_REF_NAME}\""
-            echo "CI_COMMIT=\"${GITHUB_SHA}\""
-            echo "CI_BRANCH_TAG=\"$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)\""
+            echo "LC_ALL=C.UTF-8"
+            echo "CI_BRANCH=${GITHUB_REF_NAME}"
+            echo "CI_COMMIT=${GITHUB_SHA}"
+            echo "CI_BRANCH_TAG=$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)"
             echo "CI=true"
-            echo "CI_BUILD_UNIQ_SUFFIX=\"${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}\""
-            echo CI_PULL_REQUEST=\"${{ github.event_name == 'pull_request' }}\""
+            echo "CI_BUILD_UNIQ_SUFFIX=${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}"
+            echo CI_PULL_REQUEST=${{ github.event_name == 'pull_request' }}"
           } >>"$GITHUB_ENV"
 
 
