@@ -23,11 +23,13 @@ runs:
     - uses: actions/checkout@v3
     - uses: rlespinasse/github-slug-action@v4
     - uses: actions/setup-java@v3
-      if: ${{ inputs.java-enable }} == "true"
+      if: ${{ inputs.java-enable == "true" }}
       with:
         distribution: ${{ inputs.java-vendor }}
         java-version: ${{ inputs.java-version }}
     - uses: actions/cache@v3
+      name: Cache (SBT, Coursier, Ivy)
+      if: ${{ inputs.java-enable == "true" }}
       with:
         path: |
           ~/.sbt
@@ -36,6 +38,7 @@ runs:
           /usr/local/bin/cs
         key: ${{ runner.os }}-scala
     - name: Install Coursier
+      if: ${{ inputs.java-enable == "true" }}
       shell: bash
       run: |
         if [[ ! -f /usr/local/bin/cs ]]; then
