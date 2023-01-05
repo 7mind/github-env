@@ -37,3 +37,8 @@ runs:
           sudo curl -Lo /usr/local/bin/cs  https://git.io/coursier-cli-linux
           sudo chmod +x /usr/local/bin/cs
         fi
+    - name: Set variables
+      shell: bash
+      run: |
+          BRANCH_TAG="$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)"
+          echo BRANCH_TAG=${BRANCH_TAG} >> ${GITHUB_ENV}
