@@ -68,5 +68,6 @@ runs:
             echo "CI_BUILD_UNIQ_SUFFIX=${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}"
             echo CI_PULL_REQUEST=${{ github.event_name == 'pull_request' }}"
           } >>"$GITHUB_ENV"
+          cat $GITHUB_ENV
 
 
