@@ -40,7 +40,7 @@ runs:
     - name: Set variables
       shell: bash
       run: |
-          BRANCH_TAG="$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)"
-          echo BRANCH_TAG=${BRANCH_TAG} >> ${GITHUB_ENV}
+          CI_BRANCH_TAG="$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)"
+          echo CI_BRANCH_TAG=${CI_BRANCH_TAG} >> ${GITHUB_ENV}
           echo CI=true >> ${GITHUB_ENV}
 
