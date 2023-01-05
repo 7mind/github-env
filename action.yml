@@ -45,7 +45,7 @@ runs:
             echo "CI_BRANCH_TAG=${CI_BRANCH_TAG}"
             echo "CI=true"
             echo "CI_COMMIT=${GITHUB_SHA}"
-            echo "CI_BUILD_UNIQ_SUFFIX"="${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}"
+            echo "CI_BUILD_UNIQ_SUFFIX=\"${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}\""
           } >>"$GITHUB_ENV"
 
 
