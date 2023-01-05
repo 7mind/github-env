@@ -5,6 +5,10 @@ branding:
   icon: "minimize"
   color: "blue"
 inputs:
+  nuget-enable:
+    description: "Set up .NET/Nuget"
+    default: "false"
+    required: false
   java-enable:
     description: "Set up JDK"
     default: "true"
@@ -45,6 +49,13 @@ runs:
           sudo curl -Lo /usr/local/bin/cs  https://git.io/coursier-cli-linux
           sudo chmod +x /usr/local/bin/cs
         fi
+    - name: Cache (Nuget)
+      if: ${{ inputs.nuget-enable == 'true' }}
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.nuget/packages
+        key: ${{ runner.os }}-csharp
     - name: Set variables
       shell: bash
       run: |
