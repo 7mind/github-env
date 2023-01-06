@@ -41,6 +41,7 @@ runs:
           ~/.ivy2/cache
           /usr/local/bin/cs
         key: ${{ runner.os }}-scala
+        # -Dsbt.ivy.home=$IVY_CACHE_FOLDER -Divy.home=$IVY_CACHE_FOLDER -Dcoursier.cache=$COURSIER_CACHE - do we still need that?
     - name: Install Coursier
       if: ${{ inputs.java-enable == 'true' }}
       shell: bash
@@ -72,5 +73,7 @@ runs:
       shell: bash
       run: |
           git config --global user.name "$USERNAME"
-          git config --global user.email "${build}+${GITHUB_RUN_ID}+${GITHUB_SHA}@github.actions"
+          git config --global user.email "build+${GITHUB_RUN_ID}+${GITHUB_SHA}@github.actions"
           git config --global core.sshCommand "ssh -t -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+          git config --global --get user.name
+          git config --global --get user.email
