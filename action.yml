@@ -68,5 +68,9 @@ runs:
             echo "CI_BUILD_UNIQ_SUFFIX=${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}"
             echo "CI_PULL_REQUEST=${{ github.event_name == 'pull_request' }}"
           } >>"$GITHUB_ENV"
-
-
+    - name: Configure git
+      shell: bash
+      run: |
+          git config --global user.name "$USERNAME"
+          git config --global user.email "${build}+${GITHUB_RUN_ID}+${GITHUB_SHA}@github.actions"
+          git config --global core.sshCommand "ssh -t -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
