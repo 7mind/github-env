@@ -72,7 +72,7 @@ runs:
     - name: Configure git
       shell: bash
       run: |
-          git config --global user.name "$USERNAME"
+          git config --global user.name "$USER"
           git config --global user.email "build+${GITHUB_RUN_ID}+${GITHUB_SHA}@github.actions"
           git config --global core.sshCommand "ssh -t -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
           git config --global --get user.name
