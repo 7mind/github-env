@@ -47,7 +47,7 @@ runs:
       shell: bash
       run: |
         if [[ ! -f /usr/local/bin/cs ]]; then
-          sudo curl -Lo /usr/local/bin/cs  https://git.io/coursier-cli-linux
+          curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | sudo gzip -d > /usr/local/bin/cs
           sudo chmod +x /usr/local/bin/cs
         fi
     - name: Cache (Nuget)
