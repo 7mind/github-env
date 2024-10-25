@@ -15,10 +15,10 @@ runs:
     - uses: actions/checkout@v4
     - uses: rlespinasse/github-slug-action@v4
     - name: Install Nix
-      if: ${{ inputs.with-nix == true }}
+      if: ${{ inputs.with-nix == 'true' }}
       uses: DeterminateSystems/nix-installer-action@main
     - name: Cache Nix
-      if: ${{ inputs.with-nix == true }}
+      if: ${{ inputs.with-nix == 'true' }}
       uses: DeterminateSystems/magic-nix-cache-action@main
     - name: Set variables
       shell: bash
