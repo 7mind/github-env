@@ -9,6 +9,10 @@ inputs:
     description: "Setup Nix"
     default: true
     required: false
+  cache-scala:
+    description: "Cache Scala artifacts"
+    default: true
+    required: false
 runs:
   using: "composite"
   steps:
@@ -40,3 +44,12 @@ runs:
           git config --global core.sshCommand "ssh -t -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
           git config --global --get user.name
           git config --global --get user.email
+    - uses: actions/cache@v4
+      name: Cache (SBT, Ivy, Coursier)
+      if: ${{ inputs.cache-scala == 'true' }}
+      with:
+        path: |
+          ~/.sbt
+          ~/.cache/coursier
+          ~/.ivy2/cache
+        key: ${{ runner.os }}-scala
