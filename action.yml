@@ -18,14 +18,11 @@ runs:
   steps:
     - uses: actions/checkout@v4
     - uses: rlespinasse/github-slug-action@v4
-    - name: Test
-      shell: bash
-      run: echo "${{ runner.labels }} ${{ !contains(runner.labels, 'nix') }}"
     - name: Install Nix
-      if: ${{ !contains(runner.labels, 'nix') && inputs.setup-nix == 'true' }}
+      if: ${{ runner.environment == "github-hosted" && runner.os != "Windows" && inputs.setup-nix == 'true' }}
       uses: DeterminateSystems/nix-installer-action@main
     - name: Cache Nix
-      if: ${{ !contains(runner.labels, 'nix') && inputs.setup-nix == 'true' }}
+      if: ${{ runner.environment == "github-hosted" && runner.os != "Windows" && inputs.setup-nix == 'true' }}
       uses: DeterminateSystems/magic-nix-cache-action@main
     - name: Set variables
       shell: bash
