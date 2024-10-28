@@ -18,6 +18,9 @@ runs:
   steps:
     - uses: actions/checkout@v4
     - uses: rlespinasse/github-slug-action@v4
+    - name: Test
+      shell: bash
+      run: echo "${{ runner.labels }} ${{ !contains(runner.labels, 'nix') }}"
     - name: Install Nix
       if: ${{ !contains(runner.labels, 'nix') && inputs.setup-nix == 'true' }}
       uses: DeterminateSystems/nix-installer-action@main
