@@ -21,29 +21,30 @@ runs:
     - name: Install Nix
       if: ${{ runner.environment == 'github-hosted' && runner.os != 'Windows' && inputs.setup-nix == 'true' }}
       uses: DeterminateSystems/nix-installer-action@main
-    - name: Cache Nix
-      if: ${{ runner.environment == 'github-hosted' && runner.os != 'Windows' && inputs.setup-nix == 'true' }}
-      uses: DeterminateSystems/magic-nix-cache-action@main
+    # dead
+    # - name: Cache Nix
+    #   if: ${{ runner.environment == 'github-hosted' && runner.os != 'Windows' && inputs.setup-nix == 'true' }}
+    #   uses: DeterminateSystems/magic-nix-cache-action@main
     - name: Set variables
       shell: bash
       run: |
-          {
-            echo "LC_ALL=C.UTF-8"
-            echo "CI_BRANCH=${GITHUB_REF_NAME}"
-            echo "CI_COMMIT=${GITHUB_SHA}"
-            echo "CI_BRANCH_TAG=$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)"
-            echo "CI=true"
-            echo "CI_BUILD_UNIQ_SUFFIX=${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}"
-            echo "CI_PULL_REQUEST=${{ github.event_name == 'pull_request' }}"
-          } >>"$GITHUB_ENV"
+        {
+          echo "LC_ALL=C.UTF-8"
+          echo "CI_BRANCH=${GITHUB_REF_NAME}"
+          echo "CI_COMMIT=${GITHUB_SHA}"
+          echo "CI_BRANCH_TAG=$(git describe --contains | grep v | grep -v '~' | head -n 1 || true)"
+          echo "CI=true"
+          echo "CI_BUILD_UNIQ_SUFFIX=${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}.${GITHUB_RUN_ID}"
+          echo "CI_PULL_REQUEST=${{ github.event_name == 'pull_request' }}"
+        } >>"$GITHUB_ENV"
     - name: Configure git
       shell: bash
       run: |
-          git config --global user.name "$USER"
-          git config --global user.email "build+${GITHUB_RUN_ID}+${GITHUB_SHA}@github.actions"
-          git config --global core.sshCommand "ssh -t -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-          git config --global --get user.name
-          git config --global --get user.email
+        git config --global user.name "$USER"
+        git config --global user.email "build+${GITHUB_RUN_ID}+${GITHUB_SHA}@github.actions"
+        git config --global core.sshCommand "ssh -t -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+        git config --global --get user.name
+        git config --global --get user.email
     - uses: actions/cache@v4
       name: Cache (SBT, Ivy, Coursier)
       if: ${{ inputs.cache-scala == 'true' }}
