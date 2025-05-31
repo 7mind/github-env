@@ -13,11 +13,19 @@ inputs:
     description: "Cache Scala artifacts"
     default: true
     required: false
+  reclaim-disk:
+    description: "Remove agent junk before build"
+    default: false
+    required: false    
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
     - uses: rlespinasse/github-slug-action@v4
+    - uses: wimpysworld/nothing-but-nix@main
+      if: ${{ inputs.reclaim-disk == 'true' }}
+      with:
+        hatchet-protocol: "rampage"    
     - name: Install Nix
       if: ${{ runner.environment == 'github-hosted' && runner.os != 'Windows' && inputs.setup-nix == 'true' }}
       uses: DeterminateSystems/nix-installer-action@main
