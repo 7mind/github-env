@@ -28,7 +28,7 @@ runs:
         hatchet-protocol: "rampage"    
     - name: Install Nix
       if: ${{ runner.environment == 'github-hosted' && runner.os != 'Windows' && inputs.setup-nix == 'true' }}
-      uses: DeterminateSystems/nix-installer-action@main
+      uses: DeterminateSystems/nix-installer-action@v20
     # dead
     # - name: Cache Nix
     #   if: ${{ runner.environment == 'github-hosted' && runner.os != 'Windows' && inputs.setup-nix == 'true' }}
